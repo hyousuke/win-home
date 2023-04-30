@@ -4,6 +4,7 @@
 ;;
 ;;  - https://qiita.com/asublue/items/0e3fad2667545793466d
 
+#SingleInstance
 #SuspendExempt
 ^F1::Suspend
 ^F2::Reload
@@ -440,45 +441,29 @@ pagedown_bottom()
 
 ; -----------------------------------------------------------------------------
 ; for Level 2 (IME Only)
-
 #HotIf get_emulate_level() >= EMU_LV_2_IME_ONLY
 
 <^#2:: MsgBox "* Lv2 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
+; Ctrl-\ (Backslash) vkE2sc073 SC02B
+;^\::
+;^vkE2sc073::
+^vkE2::ime_switch()
+
 ; -----------------------------------------------------------------------------
 ; for Level 5 (CtrlG)
-
 #HotIf get_emulate_level() >= EMU_LV_5_CTRL_G_QUIT
 
 <^#5:: MsgBox "* Lv5 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
+^g::quit()
+
 ; -----------------------------------------------------------------------------
 ; for Level 8 (Minimum Emacs)
-
 #HotIf get_emulate_level() >= EMU_LV_8_MINIMUM_EMACS
 
 <^#8:: MsgBox "* Lv8 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-; -----------------------------------------------------------------------------
-; for Level 10 (Emacs(default))
-
-#HotIf get_emulate_level() >= EMU_LV_10_EMACS
-
-<^#a:: MsgBox "* Lv10 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
-
-^x::global EMU_CTRL_X_PRESSED := 1
-Esc::
-{
-  global
-  If EMU_ESCAPE_PRESSED
-  {
-    Send "{Esc}"
-    EMU_ESCAPE_PRESSED := 0
-  }
-  Else
-    EMU_ESCAPE_PRESSED := 1
-  Return
-}
 ^f::
 {
   global
@@ -488,37 +473,22 @@ Esc::
     forward_char()
   Return
 }
-^c::
-{
-  global
-  If EMU_CTRL_X_PRESSED
-    kill_window()
-  Else
-    Send A_ThisHotkey
-  Return
-}
+^b::backward_char()
+^n::next_line()
+^p::previous_line()
+^a::move_beginning_of_line()
+^e::move_end_of_line()
+
 ^d::delete_char()
 ^h::delete_backward_char()
 ^k::kill_line()
-k::
-{
-  global
-  If EMU_CTRL_X_PRESSED
-    kill_buffer()
-  Else
-    Send A_ThisHotkey
-  Return
-}
-;;^o::open_line()
-^o::ime_switch()
-; Ctrl-\ (Backslash) vkE2sc073 SC02B
-;^\::
-;^vkE2sc073::
-^vkE2::ime_switch()
-^g::quit()
-^j::newline_and_indent()
-^m::newline()
-^i::indent_for_tab_command()
+
+; -----------------------------------------------------------------------------
+; for Level 10 (Emacs(default))
+#HotIf get_emulate_level() >= EMU_LV_10_EMACS
+
+<^#a:: MsgBox "* Lv10 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
+
 ^s::
 {
   global
@@ -553,16 +523,9 @@ w::
     EMU_REGION_ACTIVATED := 1
   Return
 }
-^a::move_beginning_of_line()
-^e::move_end_of_line()
-^p::previous_line()
-^n::next_line()
-^b::backward_char()
-; C-v M-v は使わない。M-n M-p を使う
-; ^v::scroll_down()
-; !v::scroll_up()
-!n::scroll_down()
-!p::scroll_up()
+
+^v::scroll_down()
+!v::scroll_up()
 v::
 {
   global
@@ -572,6 +535,7 @@ v::
     Send A_ThisHotkey
   Return
 }
+
 !<::pageup_top()
 <::
 {
@@ -582,6 +546,7 @@ v::
     Send A_ThisHotkey
   Return
 }
+
 !>::pagedown_bottom()
 >::
 {
@@ -593,14 +558,54 @@ v::
   Return
 }
 
+; not emacs
+!n::scroll_down()
+!p::scroll_up()
+
 ; -----------------------------------------------------------------------------
 ; for Level 20 (Full Emacs)
-
 #HotIf get_emulate_level() >= EMU_LV_20_FULL_EMACS
 
 <^#b:: MsgBox "* Lv20 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-#HotIf ; context-sensitive hotkey-settings ends
+^x::global EMU_CTRL_X_PRESSED := 1
+Esc::
+{
+  global
+  If EMU_ESCAPE_PRESSED
+  {
+    Send "{Esc}"
+    EMU_ESCAPE_PRESSED := 0
+  }
+  Else
+    EMU_ESCAPE_PRESSED := 1
+  Return
+}
+^c::
+{
+  global
+  If EMU_CTRL_X_PRESSED
+    kill_window()
+  Else
+    Send A_ThisHotkey
+  Return
+}
+k::
+{
+  global
+  If EMU_CTRL_X_PRESSED
+    kill_buffer()
+  Else
+    Send A_ThisHotkey
+  Return
+}
+;;^o::open_line()
+;;^o::ime_switch()
+^j::newline_and_indent()
+^m::newline()
+^i::indent_for_tab_command()
 
+; -----------------------------------------------------------------------------
+#HotIf ; context-sensitive hotkey-settings ends
 
 #UseHook False
