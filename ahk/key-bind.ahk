@@ -9,6 +9,11 @@
 ^F2::Reload
 #SuspendExempt False
 
+;===================================================================================
+;
+; Global Vars
+;
+
 DEBUG_MODE := 0
 
 ; Emacs Emulate Level Settings
@@ -19,14 +24,25 @@ EMU_LV_8_MINIMUM_EMACS := 8
 EMU_LV_10_EMACS        :=10
 EMU_LV_20_FULL_EMACS   :=20
 
+; Emacs Key State
+EMU_CTRL_X_PRESSED   := 0
+EMU_REGION_ACTIVATED := 0
+EMU_ESCAPE_PRESSED   := 0
+EMU_IS_SEARCHING     := 0
+
+
+;===================================================================================
+;
+; Funcs
+;
+
 setup_emulate_level_groups() {
 
   ; EMU_LV_0_PASSTHROUGH
-  ; GroupAdd "EmuLv0_Passthrough", "ahk_exe notepad2.exe"
+  GroupAdd "EmuLv0_Passthrough", "ahk_exe msrdc.exe" ; WSLg Apps
 
   ; EMU_LV_2_IME_ONLY
   GroupAdd "EmuLv2_ImeOnly", "ahk_exe WindowsTerminal.exe" ; WindowsTerminal
-  GroupAdd "EmuLv2_ImeOnly", "ahk_exe msrdc.exe" ; WSLg Apps
 
   ; EMU_LV_5_CTRL_G_QUIT
   ; GroupAdd "EmuLv5_CtrlGQuit", "ahk_exe notepad2.exe"
@@ -90,24 +106,17 @@ main() {
 
 main()
 
+
 ;===================================================================================
 ;
-; Global Vars, Funcs for Emacs Emulate
+; Funcs for Emacs Emulate
 ;
-; turns to be 1 when ctrl-x is pressed
-EMU_CTRL_X_PRESSED := 0
-; turns to be 1 when ctrl-space is pressed
-EMU_IS_MARK_DOWN := 0
-; turns to be 1 when escape key is pressed
-EMU_ESCAPE_PRESSED := 0
-; turns to be 1 when Ctrl-s, Ctrl-r
-EMU_IS_SEARCHING := 0
 
 reset_pre_keys()
 {
   global
   EMU_CTRL_X_PRESSED := 0
-  EMU_IS_MARK_DOWN := 0
+  EMU_REGION_ACTIVATED := 0
   EMU_ESCAPE_PRESSED := 0
   Return
 }
@@ -274,7 +283,7 @@ kill_buffer()
 move_beginning_of_line()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{HOME}"
   Else
   {
@@ -287,7 +296,7 @@ move_beginning_of_line()
 move_end_of_line()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{END}"
   Else
   {
@@ -300,7 +309,7 @@ move_end_of_line()
 previous_line()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{Up}"
   Else
   {
@@ -313,7 +322,7 @@ previous_line()
 next_line()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{Down}"
   Else
   {
@@ -326,7 +335,7 @@ next_line()
 forward_char()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{Right}"
   Else
   {
@@ -339,7 +348,7 @@ forward_char()
 backward_char()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{Left}"
   Else
   {
@@ -352,7 +361,7 @@ backward_char()
 scroll_up()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{PgUp}"
   Else
   {
@@ -365,7 +374,7 @@ scroll_up()
 scroll_down()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+{PgDn}"
   Else
   {
@@ -387,7 +396,7 @@ ime_switch()
 pageup_top()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+^{Home}"
   Else
   {
@@ -400,7 +409,7 @@ pageup_top()
 pagedown_bottom()
 {
   global
-  If EMU_IS_MARK_DOWN
+  If EMU_REGION_ACTIVATED
     Send "+^{End}"
   Else
   {
@@ -410,6 +419,7 @@ pagedown_bottom()
   Return
 }
 
+
 ;===================================================================================
 ;
 ; Hotkey Settings
@@ -417,21 +427,41 @@ pagedown_bottom()
 #UseHook True
 
 ; -----------------------------------------------------------------------------
+; for every apps
+
+<^#z::
+{
+  MsgBox("CLASS:[" WinGetClass("A")
+         "], EXE:[" WinGetProcessName("A")
+         "], TITLE:[" WinGetTitle("A")
+         "], Lv:"  get_emulate_level())
+  return
+}
+
+; -----------------------------------------------------------------------------
+; for Level 2 (IME Only)
+
 #HotIf get_emulate_level() >= EMU_LV_2_IME_ONLY
 
 <^#2:: MsgBox "* Lv2 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 ; -----------------------------------------------------------------------------
+; for Level 5 (CtrlG)
+
 #HotIf get_emulate_level() >= EMU_LV_5_CTRL_G_QUIT
 
 <^#5:: MsgBox "* Lv5 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 ; -----------------------------------------------------------------------------
+; for Level 8 (Minimum Emacs)
+
 #HotIf get_emulate_level() >= EMU_LV_8_MINIMUM_EMACS
 
 <^#8:: MsgBox "* Lv8 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 ; -----------------------------------------------------------------------------
+; for Level 10 (Emacs(default))
+
 #HotIf get_emulate_level() >= EMU_LV_10_EMACS
 
 <^#a:: MsgBox "* Lv10 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
@@ -517,10 +547,10 @@ w::
 ^vk20::
 {
   global
-  If EMU_IS_MARK_DOWN
-    EMU_IS_MARK_DOWN := 0
+  If EMU_REGION_ACTIVATED
+    EMU_REGION_ACTIVATED := 0
   Else
-    EMU_IS_MARK_DOWN := 1
+    EMU_REGION_ACTIVATED := 1
   Return
 }
 ^a::move_beginning_of_line()
@@ -564,19 +594,13 @@ v::
 }
 
 ; -----------------------------------------------------------------------------
+; for Level 20 (Full Emacs)
+
 #HotIf get_emulate_level() >= EMU_LV_20_FULL_EMACS
 
 <^#b:: MsgBox "* Lv20 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-#HotIf ; 
-
-<^#z::
-{
-  MsgBox("CLASS:" WinGetClass("A")
-         ", EXE:" WinGetProcessName("A")
-         ", Lv:"  get_emulate_level())
-  return
-}
+#HotIf ; context-sensitive hotkey-settings ends
 
 
 #UseHook False
