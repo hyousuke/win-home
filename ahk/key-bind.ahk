@@ -55,6 +55,7 @@ setup_emulate_level_groups() {
   ; default
 
   ; EMU_LV_20_FULL_EMACS
+  GroupAdd "EmuLv20_FullEmacs", "ahk_exe notepad.exe"
   GroupAdd "EmuLv20_FullEmacs", "ahk_exe notepad2.exe"
 }
 
@@ -66,10 +67,7 @@ get_emulate_level() {
   ;; cache
   cur_exe := WinGetProcessName("A")
   if ( prev_exe == cur_exe )
-  {
-    ; MSGBOX "get_emulate_level() cache hit! : " prev_exe ", " prev_level
     return prev_level
-  }
 
   prev_exe := cur_exe
   if WinActive("ahk_group EmuLv0_Passthrough")
@@ -91,10 +89,8 @@ get_emulate_level() {
 main() {
 
   if (DEBUG_MODE > 0)
-    InstallKeybdHook
-
-  ;; Disable log
-  ListLines 0
+    InstallKeybdHook True True
+  ListLines DEBUG_MODE
 
   ;; Disable delay
   SetControlDelay 0
