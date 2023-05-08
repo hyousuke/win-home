@@ -6,8 +6,8 @@
 
 #SingleInstance
 #SuspendExempt
-^F1::Suspend
-^F2::Reload
+>^F1::Suspend
+>^F2::Reload
 #SuspendExempt False
 
 ;===================================================================================
@@ -444,7 +444,7 @@ pagedown_bottom()
 ; Ctrl-\ (Backslash) vkE2sc073 SC02B
 ;^\::
 ;^vkE2sc073::
-^vkE2::ime_switch()
+>^vkE2::ime_switch()
 
 ; -----------------------------------------------------------------------------
 ; for Level 5 (CtrlG)
@@ -452,7 +452,7 @@ pagedown_bottom()
 
 <^#5:: MsgBox "* Lv5 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-^g::quit()
+>^g::quit()
 
 ; -----------------------------------------------------------------------------
 ; for Level 8 (Minimum Emacs)
@@ -460,7 +460,7 @@ pagedown_bottom()
 
 <^#8:: MsgBox "* Lv8 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-^f::
+>^f::
 {
   global
   If EMU_CTRL_X_PRESSED
@@ -469,15 +469,15 @@ pagedown_bottom()
     forward_char()
   Return
 }
-^b::backward_char()
-^n::next_line()
-^p::previous_line()
-^a::move_beginning_of_line()
-^e::move_end_of_line()
+>^b::backward_char()
+>^n::next_line()
+>^p::previous_line()
+>^a::move_beginning_of_line()
+>^e::move_end_of_line()
 
-^d::delete_char()
-^h::delete_backward_char()
-^k::kill_line()
+>^d::delete_char()
+>^h::delete_backward_char()
+>^k::kill_line()
 
 ; -----------------------------------------------------------------------------
 ; for Level 10 (Emacs(default))
@@ -485,7 +485,7 @@ pagedown_bottom()
 
 <^#a:: MsgBox "* Lv10 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-^s::
+>^s::
 {
   global
   If EMU_CTRL_X_PRESSED
@@ -494,8 +494,8 @@ pagedown_bottom()
     isearch_forward()
   Return
 }
-^r::isearch_backward()
-^w::kill_region()
+>^r::isearch_backward()
+>^w::kill_region()
 !w::kill_ring_save()
 w::
 {
@@ -506,11 +506,11 @@ w::
     Send A_ThisHotkey
   Return
 }
-^y::yank()
-^/::undo()
+>^y::yank()
+>^/::undo()
 ;; ^{Space}::
 ;; ^vk20sc039::
-^vk20::
+>^vk20::
 {
   global
   If EMU_REGION_ACTIVATED
@@ -520,7 +520,7 @@ w::
   Return
 }
 
-^v::scroll_down()
+>^v::scroll_down()
 !v::scroll_up()
 v::
 {
@@ -564,7 +564,7 @@ v::
 
 <^#b:: MsgBox "* Lv20 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
-^x::global EMU_CTRL_X_PRESSED := 1
+>^x::global EMU_CTRL_X_PRESSED := 1
 Esc::
 {
   global
@@ -577,7 +577,7 @@ Esc::
     EMU_ESCAPE_PRESSED := 1
   Return
 }
-^c::
+>^c::
 {
   global
   If EMU_CTRL_X_PRESSED
@@ -597,9 +597,9 @@ k::
 }
 ;;^o::open_line()
 ;;^o::ime_switch()
-^j::newline_and_indent()
-^m::newline()
-^i::indent_for_tab_command()
+>^j::newline_and_indent()
+>^m::newline()
+>^i::indent_for_tab_command()
 
 ; -----------------------------------------------------------------------------
 #HotIf ; context-sensitive hotkey-settings ends
