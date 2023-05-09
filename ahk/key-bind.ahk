@@ -446,6 +446,17 @@ pagedown_bottom()
 ;^vkE2sc073::
 >^vkE2::ime_switch()
 
+ ;
+; 以下は Emacs とは無関係だがこの Level で設定しておく
+;
+
+>^.::Send "^{Tab}"
+>^,::Send "^+{Tab}"
+
+>^r::Send "{F2}"
+
+>^!g::Send "!{F4}"
+
 ; -----------------------------------------------------------------------------
 ; for Level 5 (CtrlG)
 #HotIf get_emulate_level() >= EMU_LV_5_CTRL_G_QUIT
