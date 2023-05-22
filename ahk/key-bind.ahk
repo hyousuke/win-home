@@ -439,14 +439,12 @@ pagedown_bottom()
 ; for Level 2 (IME Only)
 #HotIf get_emulate_level() >= EMU_LV_2_IME_ONLY
 
-<^#2:: MsgBox "* Lv2 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
-
 ; Ctrl-\ (Backslash) vkE2sc073 SC02B
 ;^\::
 ;^vkE2sc073::
 >^vkE2::ime_switch()
 
- ;
+;
 ; 以下は Emacs とは無関係だがこの Level で設定しておく
 ;
 
@@ -461,15 +459,11 @@ pagedown_bottom()
 ; for Level 5 (CtrlG)
 #HotIf get_emulate_level() >= EMU_LV_5_CTRL_G_QUIT
 
-<^#5:: MsgBox "* Lv5 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
-
 >^g::quit()
 
 ; -----------------------------------------------------------------------------
 ; for Level 8 (Minimum Emacs)
 #HotIf get_emulate_level() >= EMU_LV_8_MINIMUM_EMACS
-
-<^#8:: MsgBox "* Lv8 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 #SuspendExempt
 >^q::Suspend
@@ -497,8 +491,6 @@ pagedown_bottom()
 ; -----------------------------------------------------------------------------
 ; for Level 10 (Emacs(default))
 #HotIf get_emulate_level() >= EMU_LV_10_EMACS
-
-<^#a:: MsgBox "* Lv10 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 >^s::
 {
@@ -576,8 +568,6 @@ v::
 ; -----------------------------------------------------------------------------
 ; for Level 20 (Full Emacs)
 #HotIf get_emulate_level() >= EMU_LV_20_FULL_EMACS
-
-<^#b:: MsgBox "* Lv20 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
 >^x::global EMU_CTRL_X_PRESSED := 1
 Esc::
