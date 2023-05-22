@@ -69,7 +69,9 @@ get_emulate_level() {
   if ( prev_exe == cur_exe )
     return prev_level
 
+  reset_all_status()
   prev_exe := cur_exe
+
   if WinActive("ahk_group EmuLv0_Passthrough")
     return prev_level:=EMU_LV_0_PASSTHROUGH
   if WinActive("ahk_group EmuLv2_ImeOnly")
