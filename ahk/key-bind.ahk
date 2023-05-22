@@ -471,6 +471,10 @@ pagedown_bottom()
 
 <^#8:: MsgBox "* Lv8 Bind * " WinGetProcessName("A") ", Lv:" get_emulate_level()
 
+#SuspendExempt
+>^q::Suspend
+#SuspendExempt False
+
 >^f::
 {
   global
