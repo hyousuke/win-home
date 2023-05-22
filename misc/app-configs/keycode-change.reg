@@ -30,18 +30,6 @@ Windows Registry Editor Version 5.00
 // [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
 // "Scancode Map"=hex:00,00,00,00,00,00,00,00,04,00,00,00,5b,e0,7b,00,29,00,79,00,1d,e0,3a,00,00,00,00,00
 
-// HP spectre 用 (うまくいかない)
-// 00,00,  00,00,  // ヘッダ(バージョン) すべて0
-// 00,00,  00,00,  // ヘッダ(フラグ) すべて0
-// 05,00,  00,00,  // 4(データ)+1(ターミネータ)で5
-// 5b,e0,  7b,00,  // (1) 0x7B(無変換)   ->  0xE05B(左Win)
-// 29,00,  79,00,  // (2) 0x79(変換)     ->  0x29(半角/全角)
-// 1d,00,  3a,00,  // (3) 0x3A(CapsLock) ->  0x1D(Control)
-// 36,00,  36,e0,  // (4) 0xE036(謎のキーPrtsc+RShift) ->  0x36(右Shift)
-// 00,00,  00,00   // ターミネータ(Null終端)
-// [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
-// "Scancode Map"=hex:00,00,00,00,00,00,00,00,05,00,00,00,5b,e0,7b,00,29,00,79,00,1d,00,3a,00,36,00,36,e0,00,00,00,00 
-
 // -------------------------------
 //
 // 参考
