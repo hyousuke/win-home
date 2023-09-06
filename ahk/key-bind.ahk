@@ -43,10 +43,10 @@ setup_emulate_level_groups() {
   GroupAdd "EmuLv0_Passthrough", "ahk_exe msrdc.exe" ; WSLg Apps
 
   ; EMU_LV_2_IME_ONLY
-  GroupAdd "EmuLv2_ImeOnly", "ahk_exe WindowsTerminal.exe" ; WindowsTerminal
 
   ; EMU_LV_5_CTRL_G_QUIT
-  ; GroupAdd "EmuLv5_CtrlGQuit", "ahk_exe notepad2.exe"
+  GroupAdd "EmuLv5_CtrlGQuit", "ahk_exe WindowsTerminal.exe" ; WindowsTerminal
+  GroupAdd "EmuLv5_CtrlGQuit", "ahk_exe ttermpro.exe" ; TeraTerm
 
   ; EMU_LV_8_MINIMUM_EMACS
   GroupAdd "EmuLv8_MinimumEmacs", "ahk_exe explorer.exe"
