@@ -6,8 +6,8 @@
 
 #SingleInstance
 #SuspendExempt
->^F1::Suspend
->^F2::Reload
+^!F1::Suspend
+^!F2::Reload
 #SuspendExempt False
 
 ;===================================================================================
@@ -428,12 +428,12 @@ pagedown_bottom()
 ; -----------------------------------------------------------------------------
 ; for every apps
 
-<^#z::
+^!F3::
 {
-  MsgBox("CLASS:[" WinGetClass("A")
-         "], EXE:[" WinGetProcessName("A")
-         "], TITLE:[" WinGetTitle("A")
-         "], Lv:"  get_emulate_level())
+  MsgBox("CLASS : [" WinGetClass("A")
+         "]`nEXE : [" WinGetProcessName("A")
+         "]`nTITLE : [" WinGetTitle("A")
+         "]`nLevel : "  get_emulate_level())
   return
 }
 
@@ -468,7 +468,7 @@ pagedown_bottom()
 #HotIf get_emulate_level() >= EMU_LV_8_MINIMUM_EMACS
 
 #SuspendExempt
->^q::Suspend
+^!q::Suspend
 #SuspendExempt False
 
 >^f::
