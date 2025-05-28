@@ -48,7 +48,7 @@ endif
 #  - すべてのアプリで共通のキーマップ
 #  - VisualStudioCode は nodoka では検知できないので、
 #
-keymap Global                                                                             #2. グローバルキーマップの設定
+keymap Global
   mod ctrl += 英数
   key *英数 = *LControl
   key C-h = BS
@@ -56,10 +56,10 @@ keymap Global                                                                   
   key *IC-C-BackSlash = 半角/全角
   key C-A-G = A-F4			# アプリ終了
 
-  key C-A-S-F9  = &DescribeBindings                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
+  key C-A-S-F9  = &DescribeBindings
   key C-A-S-F10 = &LoadSetting()
-  key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
-  key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
+  key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ
+  key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ
 
 
 #
