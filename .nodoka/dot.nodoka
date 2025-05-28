@@ -1,0 +1,119 @@
+# -*- coding: utf-8-dos -*-
+# =================================================================
+#
+#    のどか設定ファイル
+# 
+#   - シンボル指定を -DZXCV; -D(ホスト名); として実行する。
+#   - HP の ノート PC の場合は "HP-PC" シンボルも追加で指定する (-DHP-PC;)。
+#
+# =================================================================
+
+# =========================================================
+#
+#    キーボード設定
+#
+if ( USE104 )
+  include "104.nodoka"			# 104 キーボード設定
+  if ( USE109on104 )
+    include "109on104.nodoka"		# 104 キーボードを 109 キーボード風に
+  endif
+else
+  include "109.nodoka"			# 109 キーボード設定
+  if ( USE104on109 )
+    include "104on109.nodoka"		# 109 キーボードを 104 キーボード風に
+  endif
+endif
+
+# HP ノート PC の右シフト対応
+#  - HP ノート PC の右シフトが通常の右シフトの keycode と異る。
+#  - Registory で右シフトの keycode を通常の keycode に変換しようとしたが
+#    できなかったので、のどか で HP ノート PC の右シフトを通常の右シフトと
+#    同じ扱いにする。
+#  - 起動時に "HP-PC" シンンボルを引数で渡すことで有効となる
+if ( HP-PC )
+  def key HP-RShift = E0-0x36
+  mod shift += HP-RShift
+  key *HP-RShift = *LShift
+endif
+
+
+# =========================================================
+#
+#    キーマップ定義
+#
+
+#
+# Global
+#
+#  - すべてのアプリで共通のキーマップ
+#  - VisualStudioCode は nodoka では検知できないので、
+#
+keymap Global                                                                             #2. グローバルキーマップの設定
+  mod ctrl += 英数
+  key *英数 = *LControl
+  key C-h = BS
+  key ひらがな = Apps
+  key *IC-C-BackSlash = 半角/全角
+  key C-A-G = A-F4			# アプリ終了
+
+  key C-A-S-F9  = &DescribeBindings                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
+  key C-A-S-F10 = &LoadSetting()
+  key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
+  key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ                                           # (1) Ctrl-Alt-Dキーで、現在のキーバインド情報をログ出力
+
+
+#
+# KeyMapDefault
+#
+#  - nodoka を使用したくないアプリ用キーマップ (WSL-X11やEmacsenなど)
+#
+keymap KeyMapDefault : Global
+  key *IC-C-BackSlash = &Default
+  key C-A-G           = &Default
+
+
+#
+# EmacsMove, EmacsEdit keymap 読み込み
+#
+include "emacsedit.nodoka"
+
+
+#
+# MyEmacsEdit
+#  - Emacs-like なキーマップとしたい場合は、このキーマップを使用する
+#
+keymap MyEmacsEdit : EmacsEdit
+  key C-FullStop Period = C-Tab
+  key C-Comma           = C-S-Tab
+  key FullStop Period   = &Default # 'C-.'を変更すると単純な'.'の動作がおかしくなるので
+  key C-r               = F2 # 名前/値の変更
+
+
+# =========================================================
+#
+#    キーマップ割り当て
+#
+
+# WSLg 経由の X11 アプリはデフォルトキーマップにする
+window WSLgApps /msrdc\.exe/ : KeyMapDefault
+
+# MyEmacsEdit をそのまま割り当てるもの
+window Notepad /notepad.*\.exe/ : MyEmacsEdit
+window Explorer /explorer\.exe/ : MyEmacsEdit
+
+# Excel
+window Excel /EXCEL\.EXE/ : MyEmacsEdit
+  key C-o               = LAlt H I R        # 上に行を挿入
+  key C-S-o             = Down LAlt H I R # 下に行を挿入
+  key C-FullStop Period = C-PageDown
+  key C-Comma           = C-PageUp
+  key FullStop Period   = &Default # 'C-.'を変更すると単純な'.'の動作がおかしくなるので
+
+
+# =========================================================
+#
+#    実験用
+#
+
+# experimental.nodoka は空でも include しておく
+include "experimental.nodoka"
