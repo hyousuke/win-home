@@ -61,6 +61,12 @@ keymap Global
   key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ
   key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ
 
+  key C-B		= Left
+  key C-F		= Right
+  key C-N		= Down
+  key C-P		= Up
+  key C-G		= Escape
+
 
 #
 # KeyMapDefault
@@ -70,6 +76,11 @@ keymap Global
 keymap KeyMapDefault : Global
   key *IC-C-BackSlash = &Default
   key C-A-G           = &Default
+  key C-B		          = &Default
+  key C-F		          = &Default
+  key C-N		          = &Default
+  key C-P		          = &Default
+  key C-G		          = &Default
 
 
 #
