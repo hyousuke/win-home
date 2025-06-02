@@ -46,41 +46,55 @@ endif
 # Global
 #
 #  - すべてのアプリで共通のキーマップ
-#  - VisualStudioCode は nodoka では検知できないので、
 #
 keymap Global
-  mod ctrl += 英数
-  key *英数 = *LControl
-  key C-h = BS
+  mod ctrl    += 英数
+  key *英数    = *LControl
+  key C-h      = BS
   key ひらがな = Apps
-  key *IC-C-BackSlash = 半角/全角
-  key C-A-G = A-F4			# アプリ終了
+  
+  key *IC-C-BackSlash = 半角/全角  # 日本語入力
+  key C-A-G           = A-F4       # アプリ終了
 
-  key C-A-S-F9  = &DescribeBindings
-  key C-A-S-F10 = &LoadSetting()
-  key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ
-  key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ
-
-  key C-B		= Left
-  key C-F		= Right
-  key C-N		= Down
-  key C-P		= Up
-  key C-G		= Escape
+  key C-A-S-F9  = &DescribeBindings                # のそかキーバインディングログ出力
+  key C-A-S-F10 = &LoadSetting()                   # のどか設定再読み込み
+  key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ表示
+  key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ表示
 
 
 #
-# KeyMapDefault
+# KeymapDefault
 #
 #  - nodoka を使用したくないアプリ用キーマップ (WSL-X11やEmacsenなど)
 #
-keymap KeyMapDefault : Global
+keymap KeymapDefault : Global
+
+  # Global で割り当てられているキーを無効化
   key *IC-C-BackSlash = &Default
   key C-A-G           = &Default
-  key C-B		          = &Default
-  key C-F		          = &Default
-  key C-N		          = &Default
-  key C-P		          = &Default
-  key C-G		          = &Default
+
+  # KeymapEmacsMinimum で割り当てられているキーを無効化
+  # (GeneralApps ですべてのアプリに割り当てられるため)
+  key C-B = &Default
+  key C-F = &Default
+  key C-N = &Default
+  key C-P = &Default
+  key C-G = &Default
+  key C-Q = &Default
+
+
+#
+# KeymapEmacsMinimum
+#
+#  - 最小限の Emacs-like キーマップ
+#
+keymap KeymapEmacsMinimum : Global
+  key C-B	= Left
+  key C-F	= Right
+  key C-N	= Down
+  key C-P	= Up
+  key C-G	= Escape
+  key C-Q	= &Prefix(KeymapDefault)
 
 
 #
@@ -105,8 +119,14 @@ keymap MyEmacsEdit : EmacsEdit
 #    キーマップ割り当て
 #
 
+# すべてのアプリに適用されるキーマップ
+#   - VSCode など、のどかに検知されないアプリにも適用される。
+#   - このキーマップが適用されて困る場合は、WSLgApps のように KeymapDefault
+#     を適用するか、個別のウィンドウ設定を行ってキーごとに &Default を指定する。
+window GeneralApps ( // || // ) : KeymapEmacsMinimum
+
 # WSLg 経由の X11 アプリはデフォルトキーマップにする
-window WSLgApps /msrdc\.exe/ : KeyMapDefault
+window WSLgApps /msrdc\.exe/ : KeymapDefault
 
 # MyEmacsEdit をそのまま割り当てるもの
 window Notepad /notepad.*\.exe/ : MyEmacsEdit
