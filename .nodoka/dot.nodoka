@@ -118,6 +118,12 @@ keymap MyEmacsEdit : EmacsEdit
 #
 #    キーマップ割り当て
 #
+#      - GeneralApps, WSLgApps は他のアプリより後ろ かつ この順番で
+#        割り当てないと正しく割り当てられなかったり &DescribeBindings
+#        の出力がおかしくなってしまう。
+
+# アプリ毎のキーマップ割り当て (GeneralApps, WSLgApps以外)
+include "apps.nodoka"
 
 # すべてのアプリに適用されるキーマップ
 #   - VSCode など、のどかに検知されないアプリにも適用される。
@@ -128,23 +134,3 @@ window GeneralApps ( // || // ) : KeymapEmacsMinimum
 # WSLg 経由の X11 アプリはデフォルトキーマップにする
 window WSLgApps /msrdc\.exe/ : KeymapDefault
 
-# MyEmacsEdit をそのまま割り当てるもの
-window Notepad /notepad.*\.exe/ : MyEmacsEdit
-window Explorer /explorer\.exe/ : MyEmacsEdit
-
-# Excel
-window Excel /EXCEL\.EXE/ : MyEmacsEdit
-  key C-o               = LAlt H I R        # 上に行を挿入
-  key C-S-o             = Down LAlt H I R # 下に行を挿入
-  key C-FullStop Period = C-PageDown
-  key C-Comma           = C-PageUp
-  key FullStop Period   = &Default # 'C-.'を変更すると単純な'.'の動作がおかしくなるので
-
-
-# =========================================================
-#
-#    実験用
-#
-
-# experimental.nodoka は空でも include しておく
-include "experimental.nodoka"

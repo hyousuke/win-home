@@ -1,0 +1,36 @@
+# -*- coding: utf-8-dos -*-
+# =================================================================
+#
+#    のどか設定ファイル
+# 
+#   - アプリケーション毎のキーマップ割り当て
+#
+# =================================================================
+
+# MyEmacsEdit をそのまま割り当てるもの
+window Notepad /notepad.*\.exe/ : MyEmacsEdit
+window Explorer /explorer\.exe/ : MyEmacsEdit
+
+# Edge
+window MSEdge /msedge\.exe/ : MyEmacsEdit
+  key C-t       = &Default
+  key C-Space 	= C-F6	# フォーカス設定
+  key C-A-d 	= C-w	# vimium でも同じ設定しているが、フォーカス外れているときにも効かせるため
+
+# Excel
+window Excel /EXCEL\.EXE/ : MyEmacsEdit
+  key C-o               = LAlt H I R        # 上に行を挿入
+  key C-S-o             = Down LAlt H I R   # 下に行を挿入
+  key C-FullStop Period = C-PageDown
+  key C-Comma           = C-PageUp
+  key FullStop Period   = &Default          # 'C-.'を変更すると単純な'.'の動作がおかしくなるので
+
+
+# =========================================================
+#
+#    実験用
+#
+
+# experimental.nodoka は空でも include しておく
+include "experimental.nodoka"
+
