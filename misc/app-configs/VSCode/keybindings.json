@@ -21,7 +21,7 @@
     // AwesomeEmacsKeymap から不要なものを削除
     //
 
-    // C-A-f (forwardSexp), C-A-b (backwardSexp) を削除
+    // Sexp 関連のショートカットを削除
     {
         "key": "ctrl+alt+f",
         "command": "-emacs-mcx.paredit.forwardSexp",
@@ -42,7 +42,86 @@
         "command": "-emacs-mcx.paredit.backwardSexp",
         "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
     },
-
+    {
+        "key": "ctrl+alt+backspace",
+        "command": "-emacs-mcx.paredit.backwardKillSexp",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+backspace",
+        "command": "-emacs-mcx.paredit.backwardKillSexp",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+    },
+    {
+        "key": "escape ctrl+backspace",
+        "command": "-emacs-mcx.paredit.backwardKillSexp",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_4 ctrl+backspace",
+        "command": "-emacs-mcx.paredit.backwardKillSexp",
+        "when": "config.emacs-mcx.useMetaPrefixCtrlLeftBracket && editorTextFocus"
+    },
+    {
+        "key": "escape ctrl+b",
+        "command": "-emacs-mcx.paredit.backwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_4 ctrl+b",
+        "command": "-emacs-mcx.paredit.backwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixCtrlLeftBracket && editorTextFocus"
+    },
+    {
+        "key": "escape ctrl+f",
+        "command": "-emacs-mcx.paredit.forwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_4 ctrl+f",
+        "command": "-emacs-mcx.paredit.forwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixCtrlLeftBracket && editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-emacs-mcx.paredit.killSexp",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-emacs-mcx.paredit.killSexp",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+    },
+    {
+        "key": "escape ctrl+k",
+        "command": "-emacs-mcx.paredit.killSexp",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_4 ctrl+k",
+        "command": "-emacs-mcx.paredit.killSexp",
+        "when": "config.emacs-mcx.useMetaPrefixCtrlLeftBracket && editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+alt+2",
+        "command": "-emacs-mcx.paredit.markSexp",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+shift+alt+2",
+        "command": "-emacs-mcx.paredit.markSexp",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+    },
+    {
+        "key": "escape ctrl+shift+2",
+        "command": "-emacs-mcx.paredit.markSexp",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_4 ctrl+shift+2",
+        "command": "-emacs-mcx.paredit.markSexp",
+        "when": "config.emacs-mcx.useMetaPrefixCtrlLeftBracket && editorTextFocus"
+    },
 
     // ========================================================================
     // その他
@@ -74,5 +153,5 @@
         "command": "workbench.action.openSettings"
     },
 
-    
+
 ]
