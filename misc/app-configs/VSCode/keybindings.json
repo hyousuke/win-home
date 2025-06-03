@@ -1,6 +1,6 @@
 [
-    //
-    // のどかの Global keymap で定義している Emacs-like なキーバインドの
+    // ========================================================================
+    // のどかの EmacsMinimum keymap で定義している Emacs-like なキーバインドの
     // 影響を抑えるための設定
     //
     // (例) C-x C-f は Awesome Emacs Keymap で workbench.action.quickOpen
@@ -16,4 +16,63 @@
         "when": "!terminalFocus"
     },
 
+
+    // ========================================================================
+    // AwesomeEmacsKeymap から不要なものを削除
+    //
+
+    // C-A-f (forwardSexp), C-A-b (backwardSexp) を削除
+    {
+        "key": "ctrl+alt+f",
+        "command": "-emacs-mcx.paredit.forwardSexp",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+f",
+        "command": "-emacs-mcx.paredit.forwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "-emacs-mcx.paredit.backwardSexp",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "-emacs-mcx.paredit.backwardSexp",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+    },
+
+
+    // ========================================================================
+    // その他
+    //
+    
+    // C-. を QuickFix から nextEditor に変更。QuickFix は C-A-. に割り当てる。
+    {
+        "key": "ctrl+oem_period",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+alt+oem_period",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+oem_period",
+        "command": "workbench.action.terminal.showQuickFixes",
+        "when": "terminalFocus"
+    },
+
+    // C-, を openSettings から previousEditor に変更。openSetting は C-A-, に割り当てる。
+    {
+        "key": "ctrl+oem_comma",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+alt+oem_comma",
+        "command": "workbench.action.openSettings"
+    },
+
+    
 ]
