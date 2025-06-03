@@ -1,0 +1,19 @@
+[
+    //
+    // のどかの Global keymap で定義している Emacs-like なキーバインドの
+    // 影響を抑えるための設定
+    //
+    // (例) C-x C-f は Awesome Emacs Keymap で workbench.action.quickOpen
+    //      に割り当てられているが、のどかが C-f を right に変換して VSCode
+    //      に渡してしまうため C-x right(workbench.action.nextEditor) が
+    //      実行されてしまう。そこで、C-x right に quickOpen をユーザー
+    //      カスタマイズとして割り当てる。nextEditor の割り当ては上書き
+    //      されてしまうが、ショートカットキーでの呼び出しを諦めるか、
+    //      別のショートカットキーをアサインする。 
+    {
+        "key": "ctrl+x right",
+        "command": "workbench.action.quickOpen",
+        "when": "!terminalFocus"
+    },
+
+]
