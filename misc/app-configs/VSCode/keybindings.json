@@ -353,10 +353,11 @@
     // その他
     //
 
-    // C-. を QuickFix から nextEditor に変更。QuickFix は C-A-. に割り当てる。
+    // C-. を QuickFix から nextEditorInGroup に変更。
+    // これまで C-. に割り当てられていたコマンドは C-A-. に割り当てる。
     {
         "key": "ctrl+oem_period",
-        "command": "workbench.action.nextEditor"
+        "command": "workbench.action.nextEditorInGroup"
     },
     {
         "key": "ctrl+alt+oem_period",
@@ -368,16 +369,62 @@
         "command": "workbench.action.terminal.showQuickFixes",
         "when": "terminalFocus"
     },
+    {
+        "key": "ctrl+alt+oem_period",
+        "command": "acceptSelectedCodeAction",
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+alt+oem_period",
+        "command": "problems.action.showQuickFixes",
+        "when": "problemFocus"
+    },
 
-    // C-, を openSettings から previousEditor に変更。openSetting は C-A-, に割り当てる。
+    // C-, を openSettings から previousEditorInGroup に変更。
+    // これまで C-, に割り当てられていたコマンドは C-A-, に割り当てる。
     {
         "key": "ctrl+oem_comma",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.previousEditorInGroup"
     },
     {
         "key": "ctrl+alt+oem_comma",
         "command": "workbench.action.openSettings"
     },
-
-
+ 
+    // View の表示
+    {
+        "key": "ctrl+alt+f e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        // デフォルトの when 条件を有効にすると何故か C-A-f f が効かない。
+        "key": "ctrl+alt+f f",
+        "command": "workbench.view.search",
+        // "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
+        "when": "workbench.view.search.active"
+    },
+    {
+        "key": "ctrl+alt+f d",
+        "command": "workbench.view.debug",
+        "when": "viewContainer.workbench.view.debug.enabled"
+    },
+    {
+        "key": "ctrl+alt+f g",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "ctrl+alt+f x",
+        "command": "workbench.view.extensions",
+        "when": "viewContainer.workbench.view.extensions.enabled"
+    },
+    {
+        "key": "ctrl+alt+f c",
+        "command": "workbench.view.extension.containersView"
+    },
+    {
+        "key": "ctrl+alt+f r",
+        "command": "workbench.view.remote"
+    },
 ]
