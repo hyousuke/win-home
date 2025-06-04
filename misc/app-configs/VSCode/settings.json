@@ -1,5 +1,22 @@
 {
+    // 外観
+    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorCustomizations": {
+        "[Solarized Light]": {
+            "editor.lineHighlightBackground":"#eeddaaaa",
+            "editor.selectionBackground":"#eee4d0ff",
+        }
+    },
+
+    // Editor
+    "editor.fontFamily": "HackGen, Consolas, 'Courier New', monospace",
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "explicit",
+    "editor.renderLineHighlight": "all",
+    "editor.renderLineHighlightOnlyWhenFocus": true,
+
+    // Git
     "git.autofetch": true,
-    "workbench.colorTheme": "Quiet Light",
-    "git.suggestSmartCommit": false
+    "git.suggestSmartCommit": false,
 }
