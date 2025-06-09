@@ -21,6 +21,18 @@
     // AwesomeEmacsKeymap から不要なものを削除
     //
 
+    // C-j を削除
+    {
+        "key": "ctrl+j",
+        "command": "-emacs-mcx.newLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-emacs-mcx.isearchExit",
+        "when": "editorFocus && findWidgetVisible && !isComposing"
+    },
+
     // Sexp 関連のショートカットを削除
     {
         "key": "ctrl+alt+f",
@@ -391,40 +403,65 @@
         "command": "workbench.action.openSettings"
     },
  
-    // View の表示
+    // Sidebar/Panel のトグル
+    // C-j はトグルや View の切り替えのためのプリフィクスとして使う。
     {
-        "key": "ctrl+alt+f e",
+        "key": "ctrl+j ctrl+j",
+        "command": "workbench.action.togglePanel"
+    },
+    {
+        "key": "ctrl+j ctrl+s",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+j ctrl+a",
+        "command": "workbench.action.toggleAuxiliaryBar"
+    },
+
+    // View の移動
+    {
+        "key": "ctrl+j e",
         "command": "workbench.view.explorer",
         "when": "viewContainer.workbench.view.explorer.enabled"
     },
     {
-        // デフォルトの when 条件を有効にすると何故か C-A-f f が効かない。
-        "key": "ctrl+alt+f f",
+        // デフォルトの when 条件を有効にすると何故か効かない。
+        "key": "ctrl+j f",
         "command": "workbench.view.search",
         // "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
         "when": "workbench.view.search.active"
     },
     {
-        "key": "ctrl+alt+f d",
+        "key": "ctrl+j d",
         "command": "workbench.view.debug",
         "when": "viewContainer.workbench.view.debug.enabled"
     },
     {
-        "key": "ctrl+alt+f g",
+        "key": "ctrl+j g",
         "command": "workbench.view.scm",
         "when": "workbench.scm.active"
     },
     {
-        "key": "ctrl+alt+f x",
+        "key": "ctrl+j x",
         "command": "workbench.view.extensions",
         "when": "viewContainer.workbench.view.extensions.enabled"
     },
     {
-        "key": "ctrl+alt+f c",
+        "key": "ctrl+j c",
         "command": "workbench.view.extension.containersView"
     },
     {
-        "key": "ctrl+alt+f r",
+        "key": "ctrl+j r",
         "command": "workbench.view.remote"
+    },
+
+    // Editor を次/前のグループに移動
+    {
+        "key": "ctrl+x ctrl+oem_period",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+x ctrl+oem_comma",
+        "command": "workbench.action.moveEditorToPreviousGroup"
     },
 ]
