@@ -56,7 +56,8 @@ keymap Global
   key *IC-C-BackSlash = 半角/全角  # 日本語入力
   key C-A-G           = A-F4       # アプリ終了
 
-  key C-A-S-F9  = &DescribeBindings                # のそかキーバインディングログ出力
+  key C-A-S-F8  = &WindowIdentify                  # のどかウィンドウ調査
+  key C-A-S-F9  = &DescribeBindings                # のどかキーバインディングログ出力
   key C-A-S-F10 = &LoadSetting()                   # のどか設定再読み込み
   key C-A-S-F11 = &NodokaDialog(Investigate, SHOW) # のどか調査ウィンドウ表示
   key C-A-S-F12 = &NodokaDialog(Log, SHOW)         # のどかログウィンドウ表示

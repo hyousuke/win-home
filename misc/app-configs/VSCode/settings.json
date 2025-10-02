@@ -19,4 +19,9 @@
     // Git
     "git.autofetch": true,
     "git.suggestSmartCommit": false,
+    
+    // Json with comments
+    "[jsonc]": {
+
+    },
 }

@@ -464,4 +464,12 @@
         "key": "ctrl+x ctrl+oem_comma",
         "command": "workbench.action.moveEditorToPreviousGroup"
     },
+    {
+        "key": "ctrl+x g",
+        "command": "magit.status"
+    },
+    {
+        "key": "alt+x g",
+        "command": "-magit.status"
+    },
 ]
